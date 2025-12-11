@@ -1,0 +1,79 @@
+import path from "path";
+import CustomError from "../../error";
+import { saveFile } from "../../helper/fileHelper/file.helper";
+import BaseController from "../base/base.controller";
+import { IApplicantsService } from "./applicants.types";
+import { NextFunction, Request,Response } from "express";
+import { ensureUploadsFolder } from "../../utils/ensureUploads";
+
+class ApplicantsController  extends BaseController{
+    private applicantService:IApplicantsService;
+    constructor(applicantService:IApplicantsService){
+        super();
+        this.applicantService=applicantService;
+    }
+    async getApplicants(req:Request,res:Response){
+        const user=await this.applicantService.getAllApplicants();
+        this.sendReponse(res,200,"all applicants:",user)
+    }
+    async createApplicant(req:Request,res:Response){
+        const data=req.body;
+        const files = req.files as {
+        [fieldname: string]: Express.Multer.File[];
+      };
+      if (!files.cv || !files.profile) {
+        return res.status(400).json({
+          message: "Both CV and Profile image are required"
+        });
+      }
+      const cvPath = path.join(ensureUploadsFolder(),files?.cv[0].originalname)
+      const profilePath = path.join(ensureUploadsFolder(),files?.profile[0].originalname)
+        data.cvPath=cvPath as string;
+        data.profilePath=profilePath as string;
+        saveFile(files.cv[0])
+        saveFile(files.profile[0])
+        if(!data){
+            throw new CustomError("enter all the fields",400);
+        }
+        const user=await this.applicantService.createApplicant(data);
+        this.sendReponse(res,200,"applicant created successfully",user);
+    }
+    async applyVacancy(req:Request,res:Response,next:NextFunction){
+        const applicant=req.payload;
+        const vacancyId=req.params.vacancyId;
+        const applicantId=applicant.id
+        const appliedVacancy={
+            vacancy_id:vacancyId,
+            applicant_id:applicantId
+        }
+        const alreadyApplied=await this.applicantService.alreadyApplied(vacancyId,applicantId);
+        if(alreadyApplied){
+            this.sendReponse(res,400,"already applied to this vacancy")
+        }else if(!alreadyApplied){
+        await this.applicantService.applyVacancy(appliedVacancy);
+        this.sendReponse(res,200,"applied to vacancy",appliedVacancy);
+        }
+    }
+    async getAppliedVacancies(req:Request,res:Response){
+        const applicant_id=req.payload.id;
+        const vacanciesApplied=await this.applicantService.getAppliedVacancies(applicant_id);
+        this.sendReponse(res,200,"all applied vacancies:",vacanciesApplied);
+    }
+    getProfile = async (req: Request, res: Response) => {
+    try {
+      const id = req.payload.id;
+      const user = await this.applicantService.getApplicantById(id);
+      if (!user) return res.status(404).json({ message: "User not found" });
+      if (user.profilePath) {
+      const fileName = path.basename(user.profilePath);
+       const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${fileName}`;
+       res.json({ ...user.toJSON(), avatarUrl });
+    }
+    } catch (err: any) {
+      console.error("Get profile error:", err.stack || err);
+      res.status(500).json({ message: err.message || "Server error" });
+    }
+  };
+}
+
+export default ApplicantsController
