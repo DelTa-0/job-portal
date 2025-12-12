@@ -11,4 +11,8 @@ vacancyRoute.get('/vacancies',authMiddleware.auth,hasRole([ERole.COMPANY]),vacan
 vacancyRoute.get('/all_vacancies',authMiddleware.auth,hasRole([ERole.APPLICANT,ERole.COMPANY]),vacancyController.getAllVacancy)
 vacancyRoute.get('/get_applicant/:id',authMiddleware.auth,hasRole([ERole.COMPANY]),vacancyController.getApplicantsForCompany.bind(vacancyController));
 vacancyRoute.get('/search',authMiddleware.auth,hasRole([ERole.APPLICANT,ERole.COMPANY]),vacancyController.searchVacancies.bind(vacancyController))
+// vacancyRoute.get('/get_profiles',
+//     authMiddleware.auth,hasRole([ERole.COMPANY]),
+//     vacancyController.getProfile);
+
 export default vacancyRoute

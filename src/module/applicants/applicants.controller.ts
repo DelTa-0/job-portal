@@ -5,6 +5,9 @@ import BaseController from "../base/base.controller";
 import { IApplicantsService } from "./applicants.types";
 import { NextFunction, Request,Response } from "express";
 import { ensureUploadsFolder } from "../../utils/ensureUploads";
+import { EmailError } from "../../error/errors";
+import crypto from 'crypto'
+import eventBus from "../../utils/eventBus";
 
 class ApplicantsController  extends BaseController{
     private applicantService:IApplicantsService;
@@ -74,6 +77,26 @@ class ApplicantsController  extends BaseController{
       res.status(500).json({ message: err.message || "Server error" });
     }
   };
+  getCv = async (req: Request, res: Response) => {
+    try {
+      const id = req.payload.id;
+      const user = await this.applicantService.getApplicantById(id);
+      if (!user) return res.status(404).json({ message: "User not found" });
+      if (user.cvPath) {
+      const fileName = path.basename(user.cvPath);
+       const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${fileName}`;
+       res.json({ ...user.toJSON(), avatarUrl });
+    }
+    } catch (err: any) {
+      console.error("Get profile error:", err.stack || err);
+      res.status(500).json({ message: err.message || "Server error" });
+    }
+  };
+    forgetPassword=async(req:Request,res:Response)=>{
+      const email=req.body.email;
+      await this.applicantService.forgotPassword(email);
+      this.sendReponse(res,200,"verification link has been sent!");
+    }
 }
 
 export default ApplicantsController

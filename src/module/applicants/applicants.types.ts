@@ -14,6 +14,10 @@ export type IApplicants={
     password:string,
     profilePic:string,
     role:ERole,
+    verified:boolean,
+    verification_token:string|null,
+    forgot_password_token:string|null;
+    expire_time?:Date|null;
     createdAt:Date,
     updatedAt:Date,
 }
@@ -32,6 +36,7 @@ export interface IApplicantsService{
    applyVacancy(data:IVacancy_Applicant):Promise<Vacancy_Applicant>;
    alreadyApplied(vacancy_id:string,applicantId:number):Promise<IVacancy_Applicant|null>;
    getAppliedVacancies(applicant_id:number):Promise<IVacancy_Applicant[]>;
-   getApplicantById(id:number):Promise<Applicants|null>
+   getApplicantById(id:number):Promise<Applicants|null>;
+   forgotPassword(email:string):any;
 
 }

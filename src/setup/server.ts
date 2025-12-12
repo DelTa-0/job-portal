@@ -4,10 +4,12 @@ import router from './router'
 import cors from 'cors'
 import { Request,Response,NextFunction } from 'express';
 import CustomError from '../error';
+import "../helper/mailHelper/mail.event"
 dotenv.config();
 import path from 'path';
-
 const app=express();
+app.set('view engine','ejs');
+app.set('views', path.join(__dirname, '../views'));
 app.use(
   cors({
     origin: "*",

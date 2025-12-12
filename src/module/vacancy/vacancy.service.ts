@@ -34,7 +34,7 @@ class VacancyService implements IVacancyService{
         {
           model: Applicants,
           through: { attributes: [] }, 
-          attributes: ["id", "name", "email"], 
+          attributes: ["id", "name", "email","cvPath"], 
         },
       ],
     });

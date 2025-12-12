@@ -52,5 +52,7 @@ class VacancyContoller extends BaseController{
         this.sendReponse(res,200,`all vacancies with ${name} are:`,result);
     }
 
+
+    
 }
 export default VacancyContoller

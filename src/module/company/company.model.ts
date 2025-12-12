@@ -38,6 +38,18 @@ class Company extends Model<ICompany,ICompanyCreationAttributes>{
 
     @Column(DataType.STRING)
     profilePath:string;
+
+     @Column(DataType.BOOLEAN)
+    verified:boolean;
+
+    @Column(DataType.STRING)
+    verification_token:string|null;
+
+    @Column(DataType.STRING)
+    forgot_password_token?:string|null;
+
+    @Column(DataType.DATE)
+    expire_time?:Date|null;
     
     @HasMany(() => Vacancy, "companyId")
     declare vacancies?: Vacancy[]; 

@@ -43,9 +43,20 @@ class Applicants extends Model<IApplicants,IApplicantsCreationAttributes>{
     @Column(DataType.STRING)
     skills:string;
 
+    @Column(DataType.BOOLEAN)
+    verified:boolean;
+
+    @Column(DataType.STRING)
+    verification_token?:string|null;
     
     @Column(DataType.STRING)
     address:string;
+
+    @Column(DataType.STRING)
+    forgot_password_token?:string|null;
+
+    @Column(DataType.DATE)
+    expire_time?:Date|null;
     
     @AllowNull(true)
     @Column(DataType.STRING)

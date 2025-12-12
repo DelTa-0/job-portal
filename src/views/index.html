@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Notifications</title>
+  <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Real-Time Notifications</h1>
+  <button onclick="sendNotification()">Send Notification</button>
+  <ul id="notifications"></ul>
+
+  <script>
+    const socket = io('http://localhost:3000');
+
+    socket.on('receive-notification', (data) => {
+      const li = document.createElement('li');
+      li.textContent = data.message;
+      document.getElementById('notifications').appendChild(li);
+    });
+
+    function sendNotification() {
+      socket.emit('send-notification', { message: 'New notification sent!' });
+    }
+  </script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import { Request,Response,NextFunction } from "express";
 import { saveFile } from "../../helper/fileHelper/file.helper";
 import { ensureUploadsFolder } from "../../utils/ensureUploads";
 import path from "path";
+import CustomError from "../../error";
 class CompanyController extends BaseController{
     private companyService:ICompanyService;
     constructor(companyService:ICompanyService){
@@ -37,16 +38,22 @@ class CompanyController extends BaseController{
           const email = req.payload.email;
           const user = await this.companyService.getCompanyByEmail(email);
           if (!user) return res.status(404).json({ message: "User not found" });
+          console.log(user.profilePath)
           if (user.profilePath) {
           const fileName = path.basename(user.profilePath);
            const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${fileName}`;
            res.json({ ...user.toJSON(), avatarUrl });
         }
+        throw new CustomError("company doesnot have profile",400)
         } catch (err: any) {
-          console.error("Get profile error:", err.stack || err);
           res.status(500).json({ message: err.message || "Server error" });
         }
       };
+      forgetPassword=async(req:Request,res:Response)=>{
+      const email=req.body.email;
+      await this.companyService.forgotPassword(email);
+      this.sendReponse(res,200,"verification link has been sent!");
+    }
     
 }
 

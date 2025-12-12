@@ -9,6 +9,6 @@ const companyRouter=Router();
 
 companyRouter.post('/',upload.single('profile'),companyMiddleware.companyAlreadyExist,companyController.createCompany.bind(companyController));
 companyRouter.get('/',authMiddleware.auth,hasRole([ERole.COMPANY]),companyController.getAllCompany.bind(companyController));
-companyRouter.get('/get_profile',authMiddleware.auth,hasRole([ERole.COMPANY]),companyController.getProfile);
-
+companyRouter.get('/get_profile',authMiddleware.auth,hasRole([ERole.COMPANY]),companyController.getProfile.bind(companyController));
+companyRouter.post('/forgot_password',companyController.forgetPassword.bind(companyController))
 export default companyRouter

@@ -1,7 +1,7 @@
 import { APP_CONFIG } from './config/app.config'
 import databaseSetup from './setup/database';
-import express from 'express'
 import {app} from './setup/server'
+// import socketConnection from './setup/socket';
 
 const startServer = async () => {
   try {
@@ -22,5 +22,4 @@ const startServer = async () => {
     process.exit(1);
   }
 };
-
 startServer();
