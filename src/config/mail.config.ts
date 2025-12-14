@@ -1,4 +1,4 @@
 export const MAIL_CONFIG = {
-  USER: "orrin.schowalter@ethereal.email",
-  PASS: "2fSwtUMmEd9fcPBtYK",
+  USER: process.env.MAIL_USER,
+  PASS: process.env.MAIL_PASS
 };
