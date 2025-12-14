@@ -7,7 +7,7 @@ A backend system for a Job Portal application built using Node.js, Express, and 
 ## Features
 ### Authentication & Authorization
 - Role-based Register & Login system
-    -Roles: `company`, `applicant`,`super_admin`
+    Roles: `company`, `applicant`,`super_admin`
 - Secure authentication using JWT
 - Protected routes based on user roles
 
@@ -60,10 +60,10 @@ Create a `.env` file based on `.env.example`:
 ## Installation & Setup
 
 ```bash
-# Install dependencies
+1. Install dependencies
 npm install
 
-# Run in development
+2. Run in development
 npm run dev
 
 ---
@@ -83,6 +83,8 @@ npm run dev
 - Admin role and features
 - Email templates
 - Cloud storage for files
+- Add frontend 
+- Deploy
 
 ---
 
