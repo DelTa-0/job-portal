@@ -1,11 +1,10 @@
 # Job Portal --Backend
 
-A backend system for a Job Portal application built using Node.js, Express, and TypeScript. The project implements role-based authentication, authorization interaction between company applicant and vacancy.
+A backend system for a Job Portal application built using Node.js, Express, and TypeScript. The project implements role-based authentication, authorization interaction between company, applicant and vacancy.
 
 ---
 
 ## Features
-
 ### Authentication & Authorization
 - Role-based Register & Login system
     -Roles: `company`, `applicant`,`super_admin`
@@ -42,13 +41,13 @@ A backend system for a Job Portal application built using Node.js, Express, and 
 
 ## Tech Stack
 
-- **Node.js**
-- **Express.js**
-- **TypeScript**
-- **PostgreSQL** (via ORM)
-- **Multer** – file uploads
-- **EventEmitter** – email verification events and password reset events
-- **JWT** – authentication
+- Node.js
+- Express.js
+- TypeScript
+- PostgreSQL
+- Multer – file uploads
+- EventEmitter – email verification events and password reset events
+- JWT – authentication
 
 ---
 
