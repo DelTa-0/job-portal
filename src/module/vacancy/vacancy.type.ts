@@ -8,8 +8,6 @@ export type IVacancy={
     description:string,
     companyId:number
 }
-
-
 export interface IVacancyService{
     createVacancy(data:IVacancy):Promise<IVacancy>;
     getAllVacancy():Promise<IVacancy[]>;

@@ -1,4 +1,4 @@
-import { Default, HasMany, Model } from "sequelize-typescript";
+import {  HasMany, Model } from "sequelize-typescript";
 import {  ICompany, ICompanyCreationAttributes } from "./company.types";
 import { AllowNull, AutoIncrement, Column, DataType, PrimaryKey, Table } from "sequelize-typescript";
 import Vacancy from "../vacancy/vacancy.model";

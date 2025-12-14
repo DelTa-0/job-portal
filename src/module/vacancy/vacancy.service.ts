@@ -17,7 +17,6 @@ class VacancyService implements IVacancyService{
     async getAllVacancyByCompany(company_id:number):Promise<IVacancy[]>{
         return await this.vacancyModel.findAll({where:{companyId:company_id}})
     }
-
     async checkIfVacancyByCompany(vacancyId:string,companyId:number):Promise<IVacancy|null>{
         const isVacancyByCompany=await this.vacancyModel.findOne({where:{id:vacancyId},
         include:[{
@@ -46,7 +45,6 @@ class VacancyService implements IVacancyService{
         }})
         return vacancies;
     }
-   
 }
 
 export default VacancyService

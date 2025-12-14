@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { IAuthService } from "./auth.type";
 import BaseController from "../base/base.controller";
-import { forgotPasswordAppliacnt, forgotPasswordCompany, verifyEmailServiceApplicant, verifyEmailServiceCompany } from "../../helper/mailHelper/mail.helper";
+import { forgotPasswordAppliacnt, forgotPasswordCompany, verifyEmailServiceApplicant, verifyEmailServiceCompany } from "../../helper/mail-helper/mail.helper";
 import { EmailError } from "../../error/errors";
-import { redirect } from "next/dist/server/api-utils";
 
 class AuthController extends BaseController{
   private authService: IAuthService;
@@ -19,7 +18,7 @@ class AuthController extends BaseController{
         req.body.email,
         req.body.password,
       );
-      this.sendReponse(res,200,"logged in successfully",data);
+      this.sendReponse(res,200,"Logged in successfully!",data);
       
     } catch (err) {
       next(err);
@@ -32,7 +31,7 @@ class AuthController extends BaseController{
         req.body.email,
         req.body.password,
       );
-      this.sendReponse(res,200,"logged in successfully",data)
+      this.sendReponse(res,200,"Logged in successfully!",data)
     } catch (err) {
       next(err);
     }
@@ -41,38 +40,37 @@ class AuthController extends BaseController{
     try{
       const token=req.query.token as string;
       await verifyEmailServiceCompany(token);
-      this.sendReponse(res,200,"email verified! log in");
+      this.sendReponse(res,200,"Email verified! Log in");
     }catch(err){
-      throw new EmailError("some error while verifying");
+      throw new EmailError("Some error while verifying");
     }
   }
   async verifyEmailApplicant(req:Request,res:Response){
     try{
       const token=req.query.token as string;
       await verifyEmailServiceApplicant(token);
-      this.sendReponse(res,200,"email verified! log in");
+      this.sendReponse(res,200,"Email verified! Log in");
     }catch(err){
-      throw new EmailError("some error while verifying");
+      throw new EmailError("Some error while verifying");
     }
   }
   async verifyPasswordApplicant(req:Request,res:Response){
     try{
       const token=req.query.token as string;
       await forgotPasswordAppliacnt(token);
-      this.sendReponse(res,200,"verified! enter new password");
-      //redirect to applicant/update route
+      this.sendReponse(res,200,"Verified! Enter new password");
     }catch(err){
-      throw new EmailError("token expired");
+      throw new EmailError("Token expired!");
     }
   }
   async verifyPasswordCompany(req:Request,res:Response){
     try{
       const token=req.query.token as string;
       await forgotPasswordCompany(token);
-      this.sendReponse(res,200,"verified! enter new password");
+      this.sendReponse(res,200,"Verified! Enter new password");
       //redirect to company/update route
     }catch(err){
-      throw new EmailError("token expired");
+      throw new EmailError("Token expired!");
     }
   }
   

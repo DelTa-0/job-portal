@@ -1,4 +1,4 @@
-import JWTHelper from "../../helper/jwtHelper/jwt.helper";
+import JWTHelper from "../../helper/jwt-helper/jwt.helper";
 import AuthenticationMiddleware from "./authentication.middleware";
 
 const jwtHelper=new JWTHelper();

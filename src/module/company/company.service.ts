@@ -1,6 +1,6 @@
 import CustomError from "../../error";
 import { EmailError } from "../../error/errors";
-import { IPasswordHelper } from "../../helper/passwordHelper/password.type";
+import { IPasswordHelper } from "../../helper/password-helper/password.type";
 import eventBus from "../../utils/eventBus";
 import Company from "./company.model";
 import { ICompany, ICompanyService } from "./company.types";
@@ -20,7 +20,7 @@ class CompanyService implements ICompanyService{
     async createCompany(data:ICompany):Promise<Company>{
         const doesCompanyExist=await this.getCompanyByEmail(data.email)
         if(doesCompanyExist){
-            throw new CustomError("company already exist",400);
+            throw new CustomError("Company already exist",400);
         }
         const hashedPassword=await this.passwordHelper.bcryptEncryption(data.password)
         data.password=hashedPassword
@@ -38,7 +38,7 @@ class CompanyService implements ICompanyService{
     async forgotPassword(email:string){
         const applicant=await this.getCompanyByEmail(email);
         if(!applicant){
-        throw new EmailError("email doesnot exist");
+        throw new EmailError("Email doesnot exist!");
       }
       const expire_time=new Date(Date.now() + 10 * 60 * 1000);
       const token=crypto.randomBytes(6).toString("hex");

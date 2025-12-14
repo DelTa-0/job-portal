@@ -1,10 +1,11 @@
 import BaseController from "../base/base.controller";
 import { ICompanyService } from "./company.types"
 import { Request,Response,NextFunction } from "express";
-import { saveFile } from "../../helper/fileHelper/file.helper";
+import { saveFile } from "../../helper/file-helper/file.helper";
 import { ensureUploadsFolder } from "../../utils/ensureUploads";
 import path from "path";
 import CustomError from "../../error";
+import { EmailError } from "../../error/errors";
 class CompanyController extends BaseController{
     private companyService:ICompanyService;
     constructor(companyService:ICompanyService){
@@ -21,38 +22,38 @@ class CompanyController extends BaseController{
         saveFile(file)
         }
         if(!data){
-            this.sendReponse(res,400,"enter all fields");
+            this.sendReponse(res,400,"Enter all fields");
         }
         const company=await this.companyService.createCompany(data);
-        this.sendReponse(res,200,"company created successfully",company)
+        this.sendReponse(res,200,"Company created successfully!",company)
     }catch(err){
         next(err);
         }
     }
     async getAllCompany(req:Request,res:Response){
         const company=await this.companyService.getAllCompany();
-        this.sendReponse(res,200,"all companies:",company)   
+        this.sendReponse(res,200,"All companies:",company)   
     }
     getProfile = async (req: Request, res: Response) => {
         try {
           const email = req.payload.email;
           const user = await this.companyService.getCompanyByEmail(email);
-          if (!user) return res.status(404).json({ message: "User not found" });
+          if (!user) return res.status(404).json({ message: "User not found!" });
           console.log(user.profilePath)
           if (user.profilePath) {
           const fileName = path.basename(user.profilePath);
            const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${fileName}`;
-           res.json({ ...user.toJSON(), avatarUrl });
+           this.sendReponse(res,200,"Company details:",{...user.toJSON(), avatarUrl})
         }
-        throw new CustomError("company doesnot have profile",400)
+        throw new CustomError("Company doesnot have profile!",400)
         } catch (err: any) {
-          res.status(500).json({ message: err.message || "Server error" });
+          throw new EmailError("Server error!")
         }
       };
       forgetPassword=async(req:Request,res:Response)=>{
       const email=req.body.email;
       await this.companyService.forgotPassword(email);
-      this.sendReponse(res,200,"verification link has been sent!");
+      this.sendReponse(res,200,"Verification link has been sent!");
     }
     
 }

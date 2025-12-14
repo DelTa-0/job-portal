@@ -1,13 +1,11 @@
 import path from "path";
 import CustomError from "../../error";
-import { saveFile } from "../../helper/fileHelper/file.helper";
+import { saveFile } from "../../helper/file-helper/file.helper";
 import BaseController from "../base/base.controller";
 import { IApplicantsService } from "./applicants.types";
 import { NextFunction, Request,Response } from "express";
 import { ensureUploadsFolder } from "../../utils/ensureUploads";
 import { EmailError } from "../../error/errors";
-import crypto from 'crypto'
-import eventBus from "../../utils/eventBus";
 
 class ApplicantsController  extends BaseController{
     private applicantService:IApplicantsService;
@@ -17,7 +15,7 @@ class ApplicantsController  extends BaseController{
     }
     async getApplicants(req:Request,res:Response){
         const user=await this.applicantService.getAllApplicants();
-        this.sendReponse(res,200,"all applicants:",user)
+        this.sendReponse(res,200,"All applicants:",user)
     }
     async createApplicant(req:Request,res:Response){
         const data=req.body;
@@ -36,10 +34,10 @@ class ApplicantsController  extends BaseController{
         saveFile(files.cv[0])
         saveFile(files.profile[0])
         if(!data){
-            throw new CustomError("enter all the fields",400);
+            throw new CustomError("Enter all the fields",400);
         }
         const user=await this.applicantService.createApplicant(data);
-        this.sendReponse(res,200,"applicant created successfully",user);
+        this.sendReponse(res,200,"Applicant created successfully",user);
     }
     async applyVacancy(req:Request,res:Response,next:NextFunction){
         const applicant=req.payload;
@@ -51,16 +49,16 @@ class ApplicantsController  extends BaseController{
         }
         const alreadyApplied=await this.applicantService.alreadyApplied(vacancyId,applicantId);
         if(alreadyApplied){
-            this.sendReponse(res,400,"already applied to this vacancy")
+            this.sendReponse(res,400,"Already applied to this vacancy.")
         }else if(!alreadyApplied){
         await this.applicantService.applyVacancy(appliedVacancy);
-        this.sendReponse(res,200,"applied to vacancy",appliedVacancy);
+        this.sendReponse(res,200,"Applied to vacancy.",appliedVacancy);
         }
     }
     async getAppliedVacancies(req:Request,res:Response){
         const applicant_id=req.payload.id;
         const vacanciesApplied=await this.applicantService.getAppliedVacancies(applicant_id);
-        this.sendReponse(res,200,"all applied vacancies:",vacanciesApplied);
+        this.sendReponse(res,200,"All applied vacancies:",vacanciesApplied);
     }
     getProfile = async (req: Request, res: Response) => {
     try {
@@ -73,8 +71,7 @@ class ApplicantsController  extends BaseController{
        res.json({ ...user.toJSON(), avatarUrl });
     }
     } catch (err: any) {
-      console.error("Get profile error:", err.stack || err);
-      res.status(500).json({ message: err.message || "Server error" });
+      throw new EmailError("Cannot get profile of the applicant")
     }
   };
   getCv = async (req: Request, res: Response) => {
@@ -95,7 +92,7 @@ class ApplicantsController  extends BaseController{
     forgetPassword=async(req:Request,res:Response)=>{
       const email=req.body.email;
       await this.applicantService.forgotPassword(email);
-      this.sendReponse(res,200,"verification link has been sent!");
+      this.sendReponse(res,200,"Verification link has been sent!");
     }
 }
 

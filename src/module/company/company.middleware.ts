@@ -15,8 +15,7 @@ class CompanyMiddleware{
         const alreadyExist = await this.companyServices.getCompanyByEmail(email);
         if (alreadyExist) {
             return res.status(400).json({
-                message: "company already exists",
-                data: alreadyExist
+                message: "Company already exists",
             });
         }
         next();

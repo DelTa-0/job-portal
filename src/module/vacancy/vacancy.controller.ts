@@ -14,16 +14,16 @@ class VacancyContoller extends BaseController{
         const payload=req.payload;
         vacancy.companyId=payload.id;
         const newVacancy=await this.vacancyService.createVacancy(vacancy);
-        this.sendReponse(res,200,"vacancy created successfully",newVacancy)
+        this.sendReponse(res,200,"Vacancy created successfully",newVacancy)
     }
     getAllVacancyByCompany=async(req:Request,res:Response)=>{
         const companyId=req.payload.id;
         const vacancies=await this.vacancyService.getAllVacancyByCompany(companyId);
-        this.sendReponse(res,200,"all vacancies from company:",vacancies);
+        this.sendReponse(res,200,"All vacancies from company:",vacancies);
     }
     getAllVacancy=async(req:Request,res:Response)=>{
         const vacancies=await this.vacancyService.getAllVacancy();
-        this.sendReponse(res,200,"all vacancies from company:",vacancies);
+        this.sendReponse(res,200,"All vacancies from company:",vacancies);
     }
     getApplicantsForCompany = async (req: Request, res: Response) => {
     try {
@@ -32,11 +32,10 @@ class VacancyContoller extends BaseController{
     const verify=await this.vacancyService.checkIfVacancyByCompany(vacancyId,companyId);
     if(verify){
         const vacancies=await this.vacancyService.getAllApplicant(vacancyId);
-        this.sendReponse(res,200,"all applicant for the vacancy:",vacancies)
+        this.sendReponse(res,200,"All applicant for the vacancy:",vacancies)
     }
     else{
-         this.sendReponse(res,400,"you cannot see the applicants for following vacancy");
-
+         this.sendReponse(res,400,"You cannot see the applicants for following vacancy");
     }
       } catch (err) {
         throw new CustomError("error occured",400);
@@ -46,13 +45,10 @@ class VacancyContoller extends BaseController{
     searchVacancies=async(req:Request,res:Response)=>{
         const {name}=req.query;
         if(!name){
-            this.sendReponse(res,400,"enter name to search");
+            this.sendReponse(res,400,"Enter name to search");
         }
         const result=await this.vacancyService.searchVacancy(name);
-        this.sendReponse(res,200,`all vacancies with ${name} are:`,result);
+        this.sendReponse(res,200,`All vacancies with ${name} are:`,result);
     }
-
-
-    
 }
 export default VacancyContoller

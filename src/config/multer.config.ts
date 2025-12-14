@@ -10,7 +10,7 @@ const fileFilter = (
   if (allowed.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only JPG, JPEG, PNG files are allowed"));
+    cb(new Error("Only JPG, JPEG, PNG, PDF files are allowed"));
   }
 };
 

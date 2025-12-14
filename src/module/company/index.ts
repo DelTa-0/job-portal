@@ -1,10 +1,8 @@
-import { passwordHelper } from "../../helper/passwordHelper";
-import Vacancy_Applicant from "../vacancy_applicant/vacancy_applicant.model";
+import { passwordHelper } from "../../helper/password-helper";
 import CompanyController from "./company.controller";
 import CompanyMiddleware from "./company.middleware";
 import Company from "./company.model";
 import CompanyService from "./company.service";
-
 
 const companyService=new CompanyService(Company,passwordHelper);
 const companyMiddleware=new CompanyMiddleware(companyService)

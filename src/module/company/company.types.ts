@@ -1,5 +1,4 @@
 import { ERole } from "../auth/auth.type";
-import Vacancy_Applicant from "../vacancy_applicant/vacancy_applicant.model";
 import Company from "./company.model";
 
 export type ICompanyCreationAttributes = Omit<

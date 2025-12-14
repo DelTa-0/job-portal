@@ -1,6 +1,6 @@
 import CustomError from "../../error";
-import { IJWTHelper } from "../../helper/jwtHelper/jwt.type";
-import { IPasswordHelper } from "../../helper/passwordHelper/password.type";
+import { IJWTHelper } from "../../helper/jwt-helper/jwt.type";
+import { IPasswordHelper } from "../../helper/password-helper/password.type";
 import { IApplicantsService } from "../applicants/applicants.types";
 import { ICompanyService } from "../company/company.types";
 import { IAuthService } from "./auth.type";
@@ -25,11 +25,11 @@ class AuthService implements IAuthService{
         const applicant=await this.applicantService.getApplicantByEmail(email);
         const user=applicant;
         if(!user){
-            throw new CustomError("please register",400)
+            throw new CustomError("Email doesnot exist!",400)
         }
         const verifiedUser=await this.passwordHelper.bcryptCompare(password,user.password);
         if(!verifiedUser){
-            throw new CustomError("password invalid",400)
+            throw new CustomError("Password invalid!",400)
         }
         const payload={
             id:user.id,
@@ -44,12 +44,12 @@ class AuthService implements IAuthService{
         const company=await this.companyService.getCompanyByEmail(email);   
         const user=company;
         if(!user){
-            throw new CustomError("please register",400)
+            throw new CustomError("Email doesnot exist!",400)
         }
         const hashedPassword=user.getDataValue("password")
         const verifiedUser=await this.passwordHelper.bcryptCompare(password,hashedPassword);
         if(!verifiedUser){
-            throw new CustomError("password invalid",400)
+            throw new CustomError("Password invalid!",400)
         }
         const payload={
             id:user.id,
@@ -60,7 +60,5 @@ class AuthService implements IAuthService{
         res.cookie("accessToken",accessToken)
 
     }
-    
-    
 }
 export default AuthService

@@ -6,7 +6,7 @@ import authRouter from '../module/auth/auth.router'
 const router=Router()
 
 router.get('/',(req:Request,res:Response)=>{
-    res.send("hello from router")
+    res.send("Hello from router")
 })
 router.use('/applicants',applicantsRouter);
 router.use('/company',companyRouter);

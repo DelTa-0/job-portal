@@ -1,6 +1,6 @@
 import CustomError from "../../error";
 import { EmailError } from "../../error/errors";
-import { IPasswordHelper } from "../../helper/passwordHelper/password.type";
+import { IPasswordHelper } from "../../helper/password-helper/password.type";
 import eventBus from "../../utils/eventBus";
 import Vacancy_Applicant from "../vacancy_applicant/vacancy_applicant.model";
 import { IVacancy_Applicant } from "../vacancy_applicant/vacancy_applicant.type";
@@ -34,7 +34,7 @@ class ApplicantsService implements IApplicantsService{
     async createApplicant(data:IApplicants):Promise<Applicants>{
         const applicantExist=await this.getApplicantByEmail(data.email);
         if(applicantExist){
-            throw new CustomError("account already exists",400)
+            throw new CustomError("Account already exist.",400)
         }
         const hashedPassword=await this.passwordHelper.bcryptEncryption(data.password);
         data.password=hashedPassword
@@ -60,7 +60,7 @@ class ApplicantsService implements IApplicantsService{
     async forgotPassword(email:string){
         const applicant=await this.getApplicantByEmail(email);
         if(!applicant){
-        throw new EmailError("email doesnot exist");
+        throw new EmailError("Email doesnot exist!");
       }
       const expire_time=new Date(Date.now() + 10 * 60 * 1000);
       const token=crypto.randomBytes(6).toString("hex");

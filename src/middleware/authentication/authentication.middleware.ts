@@ -1,5 +1,5 @@
 import { Request,Response,NextFunction } from "express";
-import { IJWTHelper } from "../../helper/jwtHelper/jwt.type"
+import { IJWTHelper } from "../../helper/jwt-helper/jwt.type"
 import CustomError from "../../error";
 import { NotFoundError, UnauthorizedError } from "../../error/errors";
 
