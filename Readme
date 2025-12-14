@@ -1,56 +1,54 @@
-# Job Portal Backend
+# Job Portal --Backend
 
-A backend system for a **Job Portal application** built using **Node.js, Express, and TypeScript**. The project implements **role-based authentication and authorization**, allowing companies and applicants to interact with vacancies in a controlled and secure manner.
+A backend system for a Job Portal application built using Node.js, Express, and TypeScript. The project implements role-based authentication, authorization interaction between company applicant and vacancy.
 
 ---
 
 ## Features
 
 ### Authentication & Authorization
-
-* Role-based **Register & Login** system
-
-  * Roles: `company`, `applicant`
-* Secure authentication using JWT
-* Protected routes based on user roles
+- Role-based Register & Login system
+    -Roles: `company`, `applicant`,`super_admin`
+- Secure authentication using JWT
+- Protected routes based on user roles
 
 ### Company Features
 
-* Create job vacancies
-* View all vacancies created by the company
-* View applicants who have applied to a specific vacancy
+- Create job vacancies
+- View all vacancies created by the company
+- View applicants who have applied to a specific vacancy
+- Upload profile image during registration
 
 ### Applicant Features
 
-* View available job vacancies
-* Apply for job vacancies
-* Upload profile image and CV during registration or application
+- View available job vacancies
+- Apply for job vacancies
+- Upload profile image and CV during registration
 
 ### Email Verification
 
-* Email verification implemented using **Node.js EventEmitter**
-* Asynchronous email handling to avoid blocking the request lifecycle
+- Email verification implemented using Node.js EventEmitter
+- Email based forget password using Node.js EventEmitter
 
 ### File Uploads
 
-* File upload handled using **Multer**
-* Supports:
-
-  * Profile image upload
-  * CV upload
-* File type validation and storage configuration included
+- File upload handled using Multer
+- Supports:
+    * Profile image upload
+    * CV upload
+- File type validation and storage configuration included
 
 ---
 
 ## Tech Stack
 
-* **Node.js**
-* **Express.js**
-* **TypeScript**
-* **PostgreSQL** (via ORM)
-* **Multer** – file uploads
-* **EventEmitter** – email verification events
-* **JWT** – authentication
+- **Node.js**
+- **Express.js**
+- **TypeScript**
+- **PostgreSQL** (via ORM)
+- **Multer** – file uploads
+- **EventEmitter** – email verification events and password reset events
+- **JWT** – authentication
 
 ---
 
@@ -71,44 +69,21 @@ npm run dev
 
 ---
 
-## API Overview
-
-### Auth Routes
-
-* `POST /api/auth/register`
-* `POST /api/auth/login`
-* `GET /api/auth/verify-email`
-
-### Company Routes
-
-* `POST /api/vacancies` – create vacancy
-* `GET /api/vacancies/company` – view own vacancies
-* `GET /api/vacancies/:id/applicants` – view applicants
-
-### Applicant Routes
-
-* `GET /api/vacancies` – view vacancies
-* `POST /api/vacancies/:id/apply` – apply for vacancy
-
----
-
 ## Key Learning Outcomes
 
-* Role-based access control (RBAC)
-* Event-driven architecture using EventEmitter
-* Secure file uploads with Multer
-* Clean Express + TypeScript architecture
-* Scalable backend folder structure
+- Role-based access control (RBAC)
+- Event-driven architecture using EventEmitter
+- Secure file uploads with Multer
+- Clean Express + TypeScript architecture
+- Scalable backend folder structure
 
 ---
 
 ## Future Improvements
 
-* Pagination and filtering for vacancies
-* Admin role
-* Email templates
-* Cloud storage for files (S3)
-* Unit and integration tests
+- Admin role and features
+- Email templates
+- Cloud storage for files
 
 ---
 
