@@ -70,7 +70,7 @@ npm run dev
 
 ## Key Learning Outcomes
 
-- Role-based access control (RBAC)
+- Role-based access control
 - Event-driven architecture using EventEmitter
 - Secure file uploads with Multer
 - Clean Express + TypeScript architecture
