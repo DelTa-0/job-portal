@@ -5,12 +5,12 @@ import ApplicantsMiddleware from "./applicants.middleware";
 import Applicants from "./applicants.model";
 import ApplicantsService from "./applicants.service";
 
-const applicantsService=new ApplicantsService(Applicants,passwordHelper,Vacancy_Applicant);
-const applicantMiddleware=new ApplicantsMiddleware(applicantsService);
-const applicantsController=new ApplicantsController(applicantsService)
+const applicantsService = new ApplicantsService(
+  Applicants,
+  passwordHelper,
+  Vacancy_Applicant,
+);
+const applicantMiddleware = new ApplicantsMiddleware(applicantsService);
+const applicantsController = new ApplicantsController(applicantsService);
 
-export {
-    applicantsController,
-    applicantsService,
-    applicantMiddleware
-}
+export { applicantsController, applicantsService, applicantMiddleware };

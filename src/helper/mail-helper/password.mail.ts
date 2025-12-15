@@ -14,4 +14,4 @@ const passwordHelper = (recipient: string, verificationLink: string) => {
   };
   return mailOptions;
 };
-export default passwordHelper
+export default passwordHelper;

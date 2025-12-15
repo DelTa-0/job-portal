@@ -1,5 +1,5 @@
 import { MAIL_CONFIG } from "../../config/mail.config";
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 const createTransporter = () => {
   const transport = nodemailer.createTransport({
     host: "smtp.ethereal.email",

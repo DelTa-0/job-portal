@@ -5,10 +5,13 @@ import Company from "../company/company.model";
 import AuthController from "./auth.controller";
 import AuthService from "./auth.service";
 
-const authService=new AuthService(jwtHelper,passwordHelper,Applicants,Company);
+const authService = new AuthService(
+  jwtHelper,
+  passwordHelper,
+  Applicants,
+  Company,
+);
 
-const authController=new AuthController(authService);
+const authController = new AuthController(authService);
 
-export {
-    authService,authController
-}
+export { authService, authController };

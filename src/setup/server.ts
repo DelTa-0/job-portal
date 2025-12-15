@@ -1,15 +1,15 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import router from './router'
-import cors from 'cors'
-import { Request,Response,NextFunction } from 'express';
-import CustomError from '../error';
-import "../helper/mail-helper/mail.event"
+import express from "express";
+import dotenv from "dotenv";
+import router from "./router";
+import cors from "cors";
+import { Request, Response, NextFunction } from "express";
+import CustomError from "../error";
+import "../helper/mail-helper/mail.event";
 dotenv.config();
-import path from 'path';
-const app=express();
-app.set('view engine','ejs');
-app.set('views', path.join(__dirname, '../views'));
+import path from "path";
+const app = express();
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "../views"));
 app.use(
   cors({
     origin: "*",
@@ -20,10 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/uploads",
-  express.static(path.join(__dirname, "..","..", "uploads")),
+  express.static(path.join(__dirname, "..", "..", "uploads")),
 );
 
-app.use('/api/v1',router);
+app.use("/api/v1", router);
 
 //global error handling
 function errorHandler(
@@ -48,4 +48,4 @@ function errorHandler(
 }
 app.use(errorHandler);
 
-export {app}
+export { app };

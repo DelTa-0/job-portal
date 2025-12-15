@@ -1,7 +1,5 @@
 import JWTHelper from "./jwt.helper";
 
-const jwtHelper=new JWTHelper();
+const jwtHelper = new JWTHelper();
 
-export {
-    jwtHelper
-}
+export { jwtHelper };

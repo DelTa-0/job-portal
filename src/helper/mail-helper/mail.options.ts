@@ -1,4 +1,4 @@
- const mailHelper = (recipient: string, verificationLink: string) => {
+const mailHelper = (recipient: string, verificationLink: string) => {
   const mailOptions = {
     from: "no-reply@example.com",
     to: recipient,
@@ -13,7 +13,6 @@
     `,
   };
   return mailOptions;
-}
-   
+};
 
-export  default mailHelper
+export default mailHelper;

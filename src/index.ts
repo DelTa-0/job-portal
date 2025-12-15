@@ -1,6 +1,6 @@
-import { APP_CONFIG } from './config/app.config'
-import databaseSetup from './setup/database';
-import {app} from './setup/server'
+import { APP_CONFIG } from "./config/app.config";
+import databaseSetup from "./setup/database";
+import { app } from "./setup/server";
 // import socketConnection from './setup/socket';
 
 const startServer = async () => {
