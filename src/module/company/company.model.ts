@@ -8,9 +8,13 @@ import { ERole } from "../auth/auth.type";
   timestamps: true,
   defaultScope: {
     attributes: {
-      exclude: [""],
+      exclude: ["password"],
     },
-  },
+  },scopes:{
+    withPassword:{
+      attributes:{ include: [] },
+    }
+  }
 })
 class Company extends Model<ICompany,ICompanyCreationAttributes>{
     @PrimaryKey

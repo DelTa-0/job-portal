@@ -11,7 +11,7 @@ applicantsRouter.get('/',
     applicantsController.getApplicants.bind(applicantsController)
 )
 
-applicantsRouter.post('/create_applicant',
+applicantsRouter.post('/create-applicant',
     upload.fields([
     { name: "cv" }, 
     { name: "profile" }

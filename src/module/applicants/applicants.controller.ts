@@ -27,17 +27,19 @@ class ApplicantsController  extends BaseController{
           message: "Both CV and Profile image are required"
         });
       }
-      const cvPath = path.join(ensureUploadsFolder(),files?.cv[0].originalname)
-      const profilePath = path.join(ensureUploadsFolder(),files?.profile[0].originalname)
+      const cvFile=files?.cv[0];
+      const profileFile=files?.profile[0];
+      const cvPath = path.join(ensureUploadsFolder(),cvFile.originalname)
+      const profilePath = path.join(ensureUploadsFolder(),profileFile.originalname)
         data.cvPath=cvPath as string;
         data.profilePath=profilePath as string;
-        saveFile(files.cv[0])
-        saveFile(files.profile[0])
+        saveFile(cvFile)
+        saveFile(profileFile)
         if(!data){
             throw new CustomError("Enter all the fields",400);
         }
         const user=await this.applicantService.createApplicant(data);
-        this.sendReponse(res,200,"Applicant created successfully",user);
+        this.sendReponse(res,200,"Applicant created successfully! Verify your email to login",user);
     }
     async applyVacancy(req:Request,res:Response,next:NextFunction){
         const applicant=req.payload;

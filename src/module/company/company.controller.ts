@@ -5,7 +5,6 @@ import { saveFile } from "../../helper/file-helper/file.helper";
 import { ensureUploadsFolder } from "../../utils/ensureUploads";
 import path from "path";
 import CustomError from "../../error";
-import { EmailError } from "../../error/errors";
 class CompanyController extends BaseController{
     private companyService:ICompanyService;
     constructor(companyService:ICompanyService){
@@ -16,7 +15,7 @@ class CompanyController extends BaseController{
         try{
         const data=req.body;
         const file=req.file;
-        const profilePath=path.join(ensureUploadsFolder(),file?.originalname as string)
+        const profilePath = file?.originalname? path.join(ensureUploadsFolder(), file.originalname): null;
         data.profilePath=profilePath as string;
         if(file){
         saveFile(file)
@@ -25,7 +24,7 @@ class CompanyController extends BaseController{
             this.sendReponse(res,400,"Enter all fields");
         }
         const company=await this.companyService.createCompany(data);
-        this.sendReponse(res,200,"Company created successfully!",company)
+        this.sendReponse(res,200,"Company created successfully! Verify your email to login",company)
     }catch(err){
         next(err);
         }
@@ -35,19 +34,16 @@ class CompanyController extends BaseController{
         this.sendReponse(res,200,"All companies:",company)   
     }
     getProfile = async (req: Request, res: Response) => {
-        try {
           const email = req.payload.email;
           const user = await this.companyService.getCompanyByEmail(email);
           if (!user) return res.status(404).json({ message: "User not found!" });
-          console.log(user.profilePath)
           if (user.profilePath) {
           const fileName = path.basename(user.profilePath);
            const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${fileName}`;
            this.sendReponse(res,200,"Company details:",{...user.toJSON(), avatarUrl})
         }
+        else{
         throw new CustomError("Company doesnot have profile!",400)
-        } catch (err: any) {
-          throw new EmailError("Server error!")
         }
       };
       forgetPassword=async(req:Request,res:Response)=>{
@@ -55,8 +51,6 @@ class CompanyController extends BaseController{
       await this.companyService.forgotPassword(email);
       this.sendReponse(res,200,"Verification link has been sent!");
     }
-    
 }
-
 
 export default CompanyController

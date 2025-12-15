@@ -10,7 +10,12 @@ import { ERole } from "../auth/auth.type";
   timestamps: true,
   defaultScope: {
     attributes: {
-      exclude: [""],
+      exclude: ["password"],
+    },
+  },
+  scopes: {
+    withPassword: {
+      attributes: { include: [] },
     },
   },
 })

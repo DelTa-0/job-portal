@@ -23,7 +23,7 @@ class ApplicantsService implements IApplicantsService{
     }
 
     async getApplicantByEmail(email:string):Promise<Applicants|null>{
-        const applicant=await this.applicantModel.findOne({where:{email:email}});
+        const applicant=await this.applicantModel.scope('withPassword').findOne({where:{email:email}});
         return applicant;
     }
     async getApplicantById(id:number):Promise<Applicants|null>{
