@@ -13,7 +13,7 @@ class ApplicantsController extends BaseController {
     super();
     this.applicantService = applicantService;
   }
-  async getApplicants(req: Request, res: Response) {
+  async getApplicants(_req: Request, res: Response) {
     const user = await this.applicantService.getAllApplicants();
     this.sendReponse(res, 200, "All applicants:", user);
   }
@@ -49,7 +49,7 @@ class ApplicantsController extends BaseController {
       user,
     );
   }
-  async applyVacancy(req: Request, res: Response, next: NextFunction) {
+  async applyVacancy(req: Request, res: Response, _next: NextFunction) {
     const applicant = req.payload;
     const vacancyId = req.params.vacancyId;
     const applicantId = applicant.id;

@@ -7,7 +7,7 @@ class AuthenticationMiddleware {
   constructor(jwtHelper: IJWTHelper) {
     this.jwtHelper = jwtHelper;
   }
-  auth = async (req: Request, res: Response, next: NextFunction) => {
+  auth = async (req: Request, _res: Response, next: NextFunction) => {
     const accessToken: string =
       req.cookies?.accessToken ?? req.header("Authorization");
     if (!accessToken) {

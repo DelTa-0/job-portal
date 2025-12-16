@@ -45,7 +45,7 @@ class CompanyService implements ICompanyService {
       throw new EmailError("Email doesnot exist!");
     }
     const expire_time = new Date(Date.now() + 10 * 60 * 1000);
-    const token = crypto.randomBytes(6).toString("hex");
+    const token = crypto.randomBytes(32).toString("hex");
     await this.companyModel.update(
       { forgot_password_token: token, expire_time: expire_time },
       { where: { email: email } },

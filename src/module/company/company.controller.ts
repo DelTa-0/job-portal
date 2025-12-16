@@ -36,7 +36,7 @@ class CompanyController extends BaseController {
       next(err);
     }
   }
-  async getAllCompany(req: Request, res: Response) {
+  async getAllCompany(_req: Request, res: Response) {
     const company = await this.companyService.getAllCompany();
     this.sendReponse(res, 200, "All companies:", company);
   }

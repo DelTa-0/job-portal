@@ -50,7 +50,7 @@ class VacancyService implements IVacancyService {
   async searchVacancy(name: string): Promise<IVacancy[]> {
     const vacancies = await this.vacancyModel.findAll({
       where: {
-        name: { [Op.like]: `%${name}%` },
+        name: { [Op.iLike]: `%${name}%` },
       },
     });
     return vacancies;

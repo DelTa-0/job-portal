@@ -28,7 +28,7 @@ app.use("/api/v1", router);
 //global error handling
 function errorHandler(
   err: CustomError,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
 ) {

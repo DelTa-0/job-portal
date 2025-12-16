@@ -22,7 +22,7 @@ class VacancyContoller extends BaseController {
       await this.vacancyService.getAllVacancyByCompany(companyId);
     this.sendReponse(res, 200, "All vacancies from company:", vacancies);
   };
-  getAllVacancy = async (req: Request, res: Response) => {
+  getAllVacancy = async (_req: Request, res: Response) => {
     const vacancies = await this.vacancyService.getAllVacancy();
     this.sendReponse(res, 200, "All vacancies from company:", vacancies);
   };

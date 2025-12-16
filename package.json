@@ -5,7 +5,9 @@
   "imports": {
     "#*": "./src/*"
   },
+  "type": "commonjs",
   "scripts": {
+    "migrate": "sequelize-cli db:migrate",
     "dev": "tsx --watch src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",

@@ -5,7 +5,7 @@ import vacancyRoute from "../module/vacancy/vacancy.route";
 import authRouter from "../module/auth/auth.router";
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/", (_req: Request, res: Response) => {
   res.send("Hello from router");
 });
 router.use("/applicants", applicantsRouter);
